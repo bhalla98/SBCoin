@@ -21,13 +21,13 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON('SBTToken.json', function(data) {
+    $.getJSON('SBToken.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract.
-      var SBTTokenArtifact = data;
-      App.contracts.SBTToken = TruffleContract(SBTTokenArtifact);
+      var SBTokenArtifact = data;
+      App.contracts.SBToken = TruffleContract(SBTokenArtifact);
 
       // Set the provider for our contract.
-      App.contracts.SBTToken.setProvider(App.web3Provider);
+      App.contracts.SBToken.setProvider(App.web3Provider);
 
       // Use our contract to retieve and mark the adopted pets.
       return App.getBalances();
@@ -48,7 +48,7 @@ App = {
 
     console.log('Transfer ' + amount + ' SBT to ' + toAddress);
 
-    var SBTTokenInstance;
+    var SBTokenInstance;
 
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -57,10 +57,10 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.SBTToken.deployed().then(function(instance) {
-        SBTTokenInstance = instance;
+      App.contracts.SBToken.deployed().then(function(instance) {
+        SBTokenInstance = instance;
 
-        return SBTTokenInstance.transfer(toAddress, amount, {from: account, gas: 100000});
+        return SBTokenInstance.transfer(toAddress, amount, {from: account, gas: 100000});
       }).then(function(result) {
         alert('Transfer Successful!');
         return App.getBalances();
@@ -73,7 +73,7 @@ App = {
   getBalances: function() {
     console.log('Getting balances...');
 
-    var SBTTokenInstance;
+    var SBTokenInstance;
 
     web3.eth.getAccounts(function(error, accounts) {
       if (error) {
@@ -82,10 +82,10 @@ App = {
 
       var account = accounts[0];
 
-      App.contracts.SBTToken.deployed().then(function(instance) {
-        SBTTokenInstance = instance;
+      App.contracts.SBToken.deployed().then(function(instance) {
+        SBTokenInstance = instance;
 
-        return SBTTokenInstance.balanceOf(account);
+        return SBTokenInstance.balanceOf(account);
       }).then(function(result) {
         balance = result.c[0];
 
